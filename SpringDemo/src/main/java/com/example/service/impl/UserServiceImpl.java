@@ -15,16 +15,31 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
+    /**
+     * 更加用户名获取用户
+     * @param username
+     * @return
+     */
     @Override
     public User getUserByUsername(String username) {
         return userDao.selectUserByUsername(username);
     }
 
+    /**
+     * 获取所有用户
+     * @return
+     */
     @Override
     public List<User> getAllUsers() {
         return userDao.selectAllUser();
     }
 
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
     @Override
     public int addUser(User user) {
         return userDao.insertUser(user);

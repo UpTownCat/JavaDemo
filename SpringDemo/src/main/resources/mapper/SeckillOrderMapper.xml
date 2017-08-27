@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.SeckillOrderDao">
+    <delete id="deleteAll">
+        DELETE FROM seckill_order
+    </delete>
+    <insert id="insertSeckillOrder">
+        INSERT INTO seckill_order VALUES (DEFAULT, #{userId}, #{seckillGoodId}, #{count})
+    </insert>
+</mapper>

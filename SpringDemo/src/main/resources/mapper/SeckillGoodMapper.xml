@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.SeckillGoodDao">
+    <update id="updateSeckillGood">
+        UPDATE seckill_good SET store_count = store_count - #{count} where id = 1 AND store_count - #{count} >= 0
+    </update>
+    <select id="selectSeckillGoodById" resultType="SeckillGood">
+        SELECT id, name, store_count FROM seckill_good WHERE id = #{id}
+    </select>
+</mapper>

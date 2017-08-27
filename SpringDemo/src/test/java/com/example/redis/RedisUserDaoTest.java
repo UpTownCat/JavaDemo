@@ -45,7 +45,7 @@ public class RedisUserDaoTest {
      */
     @Test
     public void  getUser() {
-        int id = 1;
+        int id = 3;
         User user = redisUserDao.getUser(id);
         logger.info("user = {}", user);
     }
