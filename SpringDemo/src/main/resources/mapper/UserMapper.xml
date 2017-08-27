@@ -7,6 +7,7 @@
         <result property="password" column="password" javaType="String"></result>
         <result property="email" column="email" javaType="String"></result>
     </resultMap>
+    <cache eviction="FIFO" flushInterval="10800000" size="512" readOnly="true"></cache>
 
     <insert id="insertUser">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">

@@ -25,6 +25,8 @@ public class UserDaoTest {
     @Test
     public void selectUserById() throws Exception {
         User user = userDao.selectUserById(1);
+        User user1 = userDao.selectUserById(1);
+        User user2 = userDao.selectUserById(1);
         logger.info("user = {}", user);
     }
     @Test
