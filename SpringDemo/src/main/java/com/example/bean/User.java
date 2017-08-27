@@ -1,9 +1,11 @@
 package com.example.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/8/26.
  */
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String username;
     private String password;

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2017/8/26.
  * 用户控制器
@@ -44,7 +47,9 @@ public class UserController {
      * @return
      */
     @GetMapping("/list")
-    public String userList() {
+    public String userList(Map<String, Object> map) {
+        List<User> users = userService.getAllUsers();
+        map.put("users", users);
         return "users/user_list";
     }
 
