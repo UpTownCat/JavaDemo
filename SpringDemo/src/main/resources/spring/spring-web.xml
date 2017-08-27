@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:component-scan base-package="com.example.controller"></context:component-scan>
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <!--JSP视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+        <property name="order" value="5"></property>
+    </bean>
+    <!--freemarker配置-->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views/"></property>
+    </bean>
+    <!--freemarker视图解析器-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="false"></property>
+        <property name="suffix" value=".html"></property>
+        <property name="order" value="1"></property>
+    </bean>
+    <!--jedis连接工场-->
+    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="127.0.0.1"></property>
+        <property name="port" value="6379"></property>
+    </bean>
+    <!--redis模板-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="redisConnectionFactory"></property>
+    </bean>
+
+    <!--shiro -->
+    <bean id="userRealm" class="com.example.bean.realm.UserRealm"></bean>
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"></property>
+    </bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <!--<bean class="org.springframework.beans.factory.config.MethodInvokingBean">-->
+        <!--<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"></property>-->
+        <!--<property name="arguments" ref="securityManager"></property>-->
+    <!--</bean>-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <property name="loginUrl" value="/login"></property>
+        <property name="unauthorizedUrl" value="/unauthorized"></property>
+        <property name="filterChainDefinitions">
+            <value>
+                /users/login = anon
+                /users/** = authc, roles[user]
+                /docs/** = authc, perms[document:read]
+            </value>
+        </property>
+    </bean>
+    <!--service-->
+    <bean class="com.example.service.impl.UserServiceImpl"></bean>
+</beans>
