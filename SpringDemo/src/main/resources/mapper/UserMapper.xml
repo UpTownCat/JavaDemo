@@ -8,8 +8,23 @@
         <result property="email" column="email" javaType="String"></result>
     </resultMap>
 
+    <insert id="insertUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO user VALUES (DEFAULT, #{username}, #{password}, #{email})
+    </insert>
+
     <select id="selectUserById" resultMap="userResultMap">
         SELECT id, username, password, email FROM user WHERE id = #{id}
+    </select>
+
+    <select id="selectAllUser" resultMap="userResultMap">
+        SELECT id, username, password, email FROM user
+    </select>
+
+    <select id="selectUserByUsername" resultMap="userResultMap">
+        SELECT id, username, password, email FROM user WHERE username = #{username}
     </select>
 
 </mapper>

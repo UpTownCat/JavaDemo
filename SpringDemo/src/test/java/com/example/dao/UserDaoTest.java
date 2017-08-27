@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -25,4 +27,29 @@ public class UserDaoTest {
         User user = userDao.selectUserById(1);
         logger.info("user = {}", user);
     }
+    @Test
+    public void insertUser() {
+        User user = new User();
+        user.setUsername("darkstar");
+        user.setPassword("123456");
+        user.setEmail("1347169498@qq.com");
+        userDao.insertUser(user);
+        logger.info("id = {}", user.getId());
+    }
+    @Test
+    public void selectAllUser() {
+        List<User> users = userDao.selectAllUser();
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            logger.info("user = {}", user);
+        }
+    }
+
+    @Test
+    public void selectUserByUsername() {
+        String username = "uptowncat";
+        User user = userDao.selectUserByUsername(username);
+        logger.info("user = {}", user);
+    }
+
 }
