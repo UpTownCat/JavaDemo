@@ -55,5 +55,5 @@
         </property>
     </bean>
     <!--service-->
-    <bean class="com.example.service.impl.UserServiceImpl"></bean>
+    <!--<bean class="com.example.service.impl.UserServiceImpl"></bean>-->
 </beans>
